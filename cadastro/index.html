@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>CADASTRO | Guaraci - Levando energia sustentável para todos.</title>
+
+    <!-- Bootstrap core CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="form-validation.css?v=3222" rel="stylesheet">
+    <link href="../assets/css/styles.css?v=2" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+
+    <header id="header" class="fixed-top ">
+      <div id="header-bar" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
+        <h5 class="my-0 mr-md-auto font-weight-normal logo">
+          <a href='../' class='text-white'>Guaraci</a>
+        </h5>
+      </div>
+    </header>
+
+    <main>
+      <div id="sign-in-form" class="container">
+        <div class="py-5 text-center">
+          <h2>Faça seu cadastro abaixo.</h2>
+          <p class="lead">
+            Fique sabendo de nossas novidades, preços e notícias preenchendo o formulário abaixo. Entraremos em contato assim que possível.
+          </p>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-12 order-md-1">
+            <form class="needs-validation" novalidate>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="firstName">Nome</label>
+                  <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    Por favor, informe seu <strong>nome</strong>.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="lastName">Sobrenome</label>
+                  <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                  <div class="invalid-feedback">
+                    Por favor, informe seu <strong>sobrenome</strong>.
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-4 mb-2">
+                  <label for="birthdate">Data de nascimento</label>
+                  <input type="text" class="form-control" id="birthdate" placeholder="01/01/1900" value="" maxlength="10" required>
+                  <div class="invalid-feedback">
+                    Por favor, informe sua <strong>data de nascimento</strong>.
+                  </div>
+                </div>
+                <div class="col-md-2 mb-2">
+                  <label for="gender">Gênero</label>
+                  <select class="custom-select d-block w-100" id="gender" required>
+                    <option value="">Selecione...</option>
+                    <option value="masculino">Masculino</option>
+                    <option value="feminino">Feminino</option>
+                    <option value="outros">Outros</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Por favor, informe seu <strong>gênero</strong>.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="civil-state">Estado Civil</label>
+                  <select class="custom-select d-block w-100" id="civil-state" required>
+                    <option value="">Selecione...</option>
+                    <option value="solteiro">Solteiro(a)</option>
+                    <option value="casado">Casado(a)</option>
+                    <option value="vivuvo">Viúvo(a)</option>
+                    <option value="divorciado">Divorciado(a)</option>
+                  </select>
+                  <div class="invalid-feedback">
+                    Por favor, informe seu <strong>gênero</strong>.
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label for="phonenumber">Telefone Residencial</label>
+                  <input type="text" class="form-control" id="phonenumber" placeholder="(11) 9999-9999" value="" required>
+                  <div class="invalid-feedback">
+                    Por favor, informe seu <strong>telefone</strong>.
+                  </div>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label for="mobile">Telefone Celular</label>
+                  <input type="text" class="form-control" id="mobile" placeholder="(11) 9 9999-9999" value="" required>
+                  <div class="invalid-feedback">
+                    Por favor, informe seu <strong>celular</strong>.
+                  </div>
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="address">Endereço completo</label>
+                <input type="text" class="form-control" id="address" placeholder="Av. Paulista 1242" required>
+                <div class="invalid-feedback">
+                  Por favor, informe seu <strong>endereço</strong>.
+                </div>
+              </div>
+  
+              <hr class="mb-4">
+  
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="email">E-mail </label>
+                  <input type="email" class="form-control" id="email" placeholder="email@exemplo.com" required>
+                  <div class="invalid-feedback">
+                    Por favor, informe seu <strong>e-mail</strong>.
+                  </div>
+                </div>
+        
+                <div class="col-md-6 mb-3">
+                  <label for="confirm-email">Confirmação de E-mail </label>
+                  <input type="email" class="form-control" id="confirm-email" placeholder="email@exemplo.com" required>
+                  <div class="invalid-feedback">
+                    Por favor, confirme seu <strong>e-mail</strong>.
+                  </div>
+                  <div class="invalid-email">
+                    E-mails não conferem.
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="email">Senha </label>
+                  <input type="password" class="form-control" id="password" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Por favor, informe sua <strong>senha</strong>.
+                  </div>
+                </div>
+        
+                <div class="col-md-6 mb-3">
+                  <label for="confirm-password">Confirmação da Senha </label>
+                  <input type="password" class="form-control" id="confirm-password" placeholder="" required>
+                  <div class="invalid-feedback">
+                    Por favor, confirme sua <strong>senha</strong>.
+                  </div>
+                  <div class="invalid-password">
+                    Senhas não conferem.
+                  </div>
+                </div>
+              </div>
+  
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Finalizar cadastro</button>
+            </form>
+          </div>
+        </div>
+  
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+          <p class="mb-1">&copy; 2020 GUARACI</p>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacidade</a></li>
+            <li class="list-inline-item"><a href="#">Termos</a></li>
+            <li class="list-inline-item"><a href="#">Suporte</a></li>
+          </ul>
+        </footer>
+      </div>
+
+      <div id="success" class="container alert alert-success">
+        Seja bem-vindo(a). <br>
+        <hr class="mb-4">
+        Informações cadastradas: <br>
+        Nome: <strong><span class="firstname"></span></strong> <br>
+        Sobrenome: <strong><span class="lastname"></span></strong> <br>
+        E-mail: <strong><span class="email"></span></strong> <br>
+        Nascimento: <strong><span class="birthdate"></span></strong> <br>
+        Gênero: <strong><span class="gender"></span></strong> <br>
+        Telefone: <strong><span class="phonenumber"></span></strong> <br>
+        Celular: <strong><span class="mobile"></span></strong> <br>
+        Endereço: <strong><span class="address"></span></strong> <br>
+        <hr class="mb-4">
+      </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
+    <script src="../assets/vendor/js/jquery.inputmask.js"></script>
+    <script src="form-validation.js?v=3"></script>
+  </body>
+</html>
