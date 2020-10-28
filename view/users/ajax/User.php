@@ -89,7 +89,7 @@
                 $_SESSION['fakeDB']['Users'][$data['user_id']]['email'] = $data['email'];
             }
 
-            if ($this->userList[$data['user_id']]['password'] <> $data['email']) {
+            if ($this->userList[$data['user_id']]['password'] <> $data['password']) {
                 $_SESSION['fakeDB']['Users'][$data['user_id']]['password'] = $data['password'];
             }
 

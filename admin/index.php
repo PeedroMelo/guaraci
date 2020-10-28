@@ -5,14 +5,12 @@
   session_start();
 
   if (count($_SESSION['session_users'])) {
-    header("Location: http://$server_name/$root_dir/products/");
+    header("Location: http://$server_name/$root_dir/view/products/");
   }
 
   require '../config/Config.php';
   $config = new Config();
   $config->init();
-
-  print_r($_SESSION);
 ?>
 
 <!doctype html>
@@ -104,6 +102,6 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
-    <script src="js/functions.js?v=<?php echo 3; ?>"></script>
+    <script src="js/functions.js?v=<?php echo 4; ?>"></script>
   </body>
 </html>

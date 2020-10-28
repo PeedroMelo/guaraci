@@ -1,12 +1,12 @@
 (function () {
-    'use strict'
-  
-    window.addEventListener('load', function () {
-      login()
-    }, false)
+  'use strict'
+
+  window.addEventListener('load', function () {
+    validateFields()
+  }, false)
 }());
 
-function login() {
+function validateFields() {
   // Fetch all the forms we want to apply custom Bootstrap validation styles to
   var forms = document.getElementsByClassName('needs-validation')
   // Loop over them and prevent submission
@@ -17,14 +17,7 @@ function login() {
       if (!form.checkValidity()) {
         event.stopPropagation()
       } else {
-
-        if (!autenticateUser()) {
-          alert('[Falha de autenticação] Usuário inválido.')
-          return false;
-        }
-
-        // Go to admin page
-        window.location.href = '../view/products/';
+        saveData()
         return true;
       }
       form.classList.add('was-validated')
@@ -33,24 +26,38 @@ function login() {
   return false;
 }
 
-function autenticateUser() {
-  var autenticate = false;
+function saveData() {
+  
+  var client_id = document.getElementById('client_id').value;
 
   var args = {
-    'email'       : document.getElementById('email').value,
-    'password'    : document.getElementById('password').value,
+    'client_id': client_id,
+    'name'     : document.getElementById('name').value,
+    'email'    : document.getElementById('email').value,
   };
 
+  if (client_id == '') {
+    func = 'createClient'
+  } else {
+    func = 'updateClient'
+  }
+
   $.ajax({
-    url: "ajax/Autenticate.php",
+    url: "ajax/Client.php",
     method: 'POST',
     async: false,
-    data: args,
+    data: {
+      function: func,
+      args: args
+    },
   }).done(function(res) {
-    autenticate = res.autenticate;
+
+    alert(res.message);
+
+    window.location.href = '../clients/';
   }).fail(function(error) {
+    alert('oi')
     console.log(error);
   });
 
-  return autenticate;
 }
