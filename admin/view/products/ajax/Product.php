@@ -51,16 +51,16 @@
         public function findProductByName($data)
         {
             foreach ($this->productsList as $product_id => $product) {
-                if ($this->productsList[$product_id]['name'] == $data['name'])
+                if ($this->productsList[$product_id]['name'] == $data['product'])
                     return [
-                        'user_id' => $product_id,
+                        'product_id' => $product_id,
                         'message' => ''
                     ];
             }
 
             return [
-                'user_id' => '',
-                'message' => "Nenhum produto encontrado com o nome $data[name]"
+                'product_id' => '',
+                'message' => "Nenhum produto encontrado com o nome $data[product]"
             ];
         }
 

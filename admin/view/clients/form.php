@@ -1,15 +1,10 @@
 <?php
-  $server_name = $_SERVER['SERVER_NAME'];
-  $root_dir = explode('/', $_SERVER['REQUEST_URI'])[1];
+  require '../../includes/classes/Autentication.php';
+  $auth = new Autentication();
+  $auth->autenticateSession();
 
-  session_start();
-
-  if (count($_SESSION['session_users']) == 0) {
-    header("Location: http://$server_name/$root_dir/admin/");
-  }
-
-  $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : '';
-  $user = $_SESSION['fakeDB']['Users'][$user_id];
+  $client_id = isset($_GET['client_id']) ? $_GET['client_id'] : '';
+  $client = $_SESSION['fakeDB']['Clients'][$client_id];
 ?>
 
 <!doctype html>
@@ -18,7 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Usuários | Guaraci Soluções Energéticas BR</title>
+    <title>Clientes | Guaraci Soluções Energéticas BR</title>
 
     <!-- Bootstrap core CSS -->
     <link
@@ -28,21 +23,21 @@
       crossorigin="anonymous">
 
     <!-- Custom styles -->
-		<link href="../../assets/css/dashboard.css" rel="stylesheet">
+		<link href="../../../assets/css/dashboard.css" rel="stylesheet">
 		<link href="css/form-validation.css" rel="stylesheet">
   </head>
 
   <body>
-    <?php include_once "../../includes/header.php"; ?>
+    <?php include_once "../../includes/templates/header.php"; ?>
 
-    <input type="hidden" id="user_id" value="<?= $user_id <> '' ? $user_id : '' ?>">
+    <input type="hidden" id="client_id" value="<?= $client_id <> '' ? $client_id : '' ?>">
 
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
-              <?php include_once "../../includes/menu.php"; ?>
+              <?php include_once "../../includes/templates/menu.php"; ?>
             </ul>
 
             <ul class="nav flex-column mb-2">
@@ -52,16 +47,17 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Usuários</h1>
+            <h1 class="h2">Clientes</h1>
           </div>
 
           <div class="row">
             <div class="col-md-12 order-md-1">
 							<form class="needs-validation" novalidate>
-								<div class="row">
+
+                <div class="row">
 									<div class="col-md-4">
-										<label for="email">E-mail</label>
-										<input type="text" class="form-control" id="email" placeholder="" value="<?= isset($user['email']) ? $user['email'] : '' ?>" required>
+										<label for="name">Nome</label>
+										<input type="text" class="form-control" id="name" placeholder="" value="<?= isset($client['name']) ? $client['name'] : '' ?>" required>
 										<div class="invalid-feedback">
 											Por favor, informe seu <strong>email</strong>.
 										</div>
@@ -69,24 +65,11 @@
 								</div>
 
 								<div class="row">
-									<div class="col-md-4 mb-3">
-										<label for="password">Senha </label>
-										<input type="password" class="form-control" id="password" placeholder="" value="<?= isset($user['password']) ? $user['password'] : '' ?>" required>
+									<div class="col-md-4">
+										<label for="email">E-mail</label>
+										<input type="text" class="form-control" id="email" placeholder="" value="<?= isset($client['email']) ? $client['email'] : '' ?>" required>
 										<div class="invalid-feedback">
-											Por favor, informe sua <strong>senha</strong>.
-										</div>
-									</div>
-								</div>
-
-								<div class="row">
-									<div class="col-md-4 mb-3">
-										<label for="confirm-password">Confirmação da Senha </label>
-										<input type="password" class="form-control" id="confirm-password" placeholder="" required>
-										<div class="invalid-feedback">
-											Por favor, confirme sua <strong>senha</strong>.
-										</div>
-										<div class="invalid-password" style='display: none;'>
-											Senhas não conferem.
+											Por favor, informe seu <strong>email</strong>.
 										</div>
 									</div>
 								</div>
@@ -102,7 +85,7 @@
       </div>
 		</div>
 
-    <?php include_once "../../includes/footer.php"; ?>
+    <?php include_once "../../includes/templates/footer.php"; ?>
 		<script src="js/form-validation.js?v=3"></script>
   </body>
 </html>

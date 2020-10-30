@@ -3,6 +3,7 @@
   
     window.addEventListener('load', function () {
       listUsers()
+      findUser()
     }, false)
 }());
 
@@ -50,5 +51,38 @@ function deleteUser() {
                 });
             }
         })
+    });
+}
+
+function findUser() {
+
+    var user_email = document.getElementById('user-email');
+    user_email.addEventListener('keypress', (e) => {
+        if (e.which === 13) {
+            
+            var email = user_email.value;
+            
+            $.ajax({
+                url: "ajax/User.php",
+                method: 'POST',
+                data: {
+                    function: 'findUserByEmail',
+                    args: { email: email }
+                },
+            }).done(function(res) {
+        
+                if (res.user_id === '') {
+                    alert(res.message);
+                    document.getElementById('user-email').value = '';
+                    return false;
+                }
+
+                window.location.href = `./form.php?user_id=${res.user_id}`;
+                return true;
+        
+            }).fail(function(error) {
+                console.log(error);
+            });
+        }
     });
 }

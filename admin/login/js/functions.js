@@ -37,12 +37,12 @@ function autenticateUser() {
   var autenticate = false;
 
   var args = {
-    'email'       : document.getElementById('email').value,
-    'password'    : document.getElementById('password').value,
+    'email'    : document.getElementById('email').value,
+    'password' : document.getElementById('password').value,
   };
 
   $.ajax({
-    url: "ajax/Autenticate.php",
+    url: "ajax/login.php",
     method: 'POST',
     async: false,
     data: args,

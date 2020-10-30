@@ -48,10 +48,11 @@
             ];
         }
 
-        public function findClientByName($data)
+        public function findClientByNameOrEmail($data)
         {
             foreach ($this->clientList as $client_id => $client) {
-                if ($this->clientList[$client_id]['name'] == $data['name'])
+                if ($this->clientList[$client_id]['name'] == $data['name_email'] ||
+                    $this->clientList[$client_id]['email'] == $data['name_email'])
                     return [
                         'client_id' => $client_id,
                         'message' => ''
@@ -60,7 +61,7 @@
 
             return [
                 'client_id' => '',
-                'message' => "Nenhum usuário encontrado com o nome $data[name]"
+                'message' => "Nenhum cliente encontrado com o dado $data[name_email]"
             ];
         }
 

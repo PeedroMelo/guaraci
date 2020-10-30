@@ -8,5 +8,5 @@
   $_SESSION['session_users'] = [];
 
   // Come back to login page
-  header("Location: http://$server_name/$root_dir/admin/");
+  header("Location: http://$server_name/$root_dir/admin/login");
 ?>
