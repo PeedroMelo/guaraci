@@ -43,7 +43,7 @@ function saveData() {
   }
 
   $.ajax({
-    url: "ajax/Client.php",
+    url: "ajax_router.php",
     method: 'POST',
     async: false,
     data: {

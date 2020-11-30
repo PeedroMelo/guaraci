@@ -1,5 +1,5 @@
 <?php
-  require '../../includes/classes/Autentication.php';
+  require '../../includes/helpers/Autentication.php';
   $auth = new Autentication();
   $auth->autenticateSession();
 ?>
@@ -59,6 +59,7 @@
               <thead>
                 <tr>
                   <th>ID</th>
+                  <th>Nome</th>
                   <th>E-mail</th>
                   <th style="width: 200px;">Ações</th>
                 </tr>

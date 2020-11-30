@@ -9,7 +9,7 @@
 
 function listClients() {
     $.ajax({
-        url: "ajax/Client.php",
+        url: "ajax_router.php",
         method: 'POST',
         data: {
             function: 'listClients',
@@ -35,7 +35,7 @@ function deleteClient() {
             if (confirm) {
 
                 $.ajax({
-                    url: "ajax/Client.php",
+                    url: "ajax_router.php",
                     method: 'POST',
                     data: {
                         function: 'deleteClient',
@@ -63,7 +63,7 @@ function findClient() {
             var name_email = client_name_email.value;
             
             $.ajax({
-                url: "ajax/Client.php",
+                url: "ajax_router.php",
                 method: 'POST',
                 data: {
                     function: 'findClientByNameOrEmail',

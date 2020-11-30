@@ -1,5 +1,5 @@
 <?php
-  require '../../includes/classes/Autentication.php';
+  require __DIR__ . '/../../includes/classes/Autentication.php';
   $auth = new Autentication();
   $auth->autenticateSession();
 

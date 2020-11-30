@@ -64,6 +64,7 @@ function saveData() {
 
   var args = {
     'user_id' : user_id,
+    'name'    : document.getElementById('name').value,
     'email'   : document.getElementById('email').value,
     'password': document.getElementById('password').value,
   };
@@ -75,7 +76,7 @@ function saveData() {
   }
 
   $.ajax({
-    url: "ajax/User.php",
+    url: "ajax_router.php",
     method: 'POST',
     async: false,
     data: {
@@ -84,6 +85,7 @@ function saveData() {
     },
   }).done(function(res) {
 
+    console.log(res)
     alert(res.message);
 
     window.location.href = '../users/';

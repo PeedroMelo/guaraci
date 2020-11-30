@@ -5,7 +5,7 @@
   session_start();
 
   if (count($_SESSION['session_users']) == 0) {
-    header("Location: http://$server_name/$root_dir/admin/login/");
+    header("Location: http://$server_name/$root_dir/admin/view/login/");
   } else {
     header("Location: http://$server_name/$root_dir/admin/view/products/");
   }

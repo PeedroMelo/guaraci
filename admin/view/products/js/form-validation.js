@@ -64,7 +64,7 @@ function saveData() {
   }
 
   $.ajax({
-    url: "ajax/Product.php",
+    url: "ajax_router.php",
     method: 'POST',
     async: false,
     data: {
