@@ -4,14 +4,6 @@ require __DIR__ . '/../model/User.php';
 
 class UserController
 {
-    public $userList;
-
-    function __construct()
-    {
-        session_start();
-        $this->userList = $_SESSION['fakeDB']['Users'];
-    }
-
     public function listUsers()
     {
         $user = new User();
@@ -62,7 +54,7 @@ class UserController
         if (count($res) == 0) {
             return [
                 'user_id' => '',
-                'message' => "Nenhum usuário encontrado com o email $data[email]"
+                'message' => "Nenhum usuário encontrado com o email: $data[email]"
             ];
         }
 
@@ -74,13 +66,6 @@ class UserController
 
     public function createUser($data)
     {
-        foreach ($this->userList as $user_id => $user) {
-            if ($this->userList[$user_id]['email'] == $data['email'])
-                return [
-                    'message' => "$data[email] já existe na base!"
-                ];
-        }
-
         $user = new User();
 
         $user->setName($data['name']);
@@ -111,6 +96,7 @@ class UserController
     {
         $user = new User();
         $user->setUserId($data['user_id']);
+        $user->setName($data['name']);
 
         $res = $user->delete();
 

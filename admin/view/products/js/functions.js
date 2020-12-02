@@ -67,10 +67,9 @@ function findProduct() {
                 method: 'POST',
                 data: {
                     function: 'findProductByName',
-                    args: { product: product }
+                    args: { name: product }
                 },
             }).done(function(res) {
-        
                 if (res.product_id === '') {
                     alert(res.message);
                     document.getElementById('product').value = '';

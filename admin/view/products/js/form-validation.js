@@ -11,7 +11,7 @@ function formatPrice() {
     if(e.keyCode < 47 || e.keyCode > 57) {
       e.preventDefault();
     }
-    var price = document.getElementById('price');
+    var price = document.getElementById('value');
     var valor = price.value;
     
     valor = valor + '';
@@ -50,11 +50,18 @@ function validateFields() {
 function saveData() {
   
   var product_id = document.getElementById('product_id').value;
+  if (document.getElementById('active').checked == true) {
+    active = 1;
+  } else {
+    active = 0;
+  }
 
   var args = {
-    'product_id': product_id,
-    'name'      : document.getElementById('name').value,
-    'price'     : document.getElementById('price').value,
+    'product_id' : product_id,
+    'name'       : document.getElementById('name').value,
+    'description': document.getElementById('description').value,
+    'value'      : document.getElementById('value').value,
+    'active'     : active,
   };
 
   if (product_id == '') {

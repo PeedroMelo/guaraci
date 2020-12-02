@@ -1,35 +1,29 @@
 <?php
 
-require __DIR__ . '/../includes/helpers/Connection.php';
+require __DIR__ . '/../model/Product.php';
 
 class ProductController
 {
-    public $productsList;
-
-    function __construct()
-    {
-        session_start();
-        $this->productsList = $_SESSION['fakeDB']['Products'];
-    }
-
     public function listProducts()
     {
-        $html = '';
-        foreach ($this->productsList as $product_id => $product) {
+        $product = new Product();
+        $products = $product->list();
+
+        foreach ($products as $product) {
             $html .=
-            "<tr user_id='$product_id'>
-                <td>$product_id</td>
+            "<tr user_id='$product[id]'>
+                <td>#$product[id]</td>
                 <td>$product[name]</td>
-                <td>R$ $product[price]</td>
+                <td>R$ $product[value]</td>
                 <td style='width: 200px; display: flex;'>
-                    <a href='form.php?product_id=$product_id' style='text_decoration: none;'>
+                    <a href='form.php?product_id=$product[id]' style='text_decoration: none;'>
                         <button class='btn btn-sm btn-success' type='button' style='display: flex; margin-right: 5px;'>
                         <!-- <span data-feather='edit' style='margin-right: 5px;'></span> -->
                         Editar
                         </button>
                     </a>
 
-                    <button product_id='$product_id' class='btn btn-sm btn-danger excluir' type='button' style='display: flex;'>
+                    <button product_id='$product[id]' class='btn btn-sm btn-danger excluir' type='button' style='display: flex;'>
                         <!-- <span data-feather='trash' style='margin-right: 5px;'></span> -->
                         Excluir
                     </button>
@@ -38,73 +32,79 @@ class ProductController
         }
 
         return [
-            'html' => $html
+            'html' => isset($html) ? $html : '',
         ];
+    }
+
+    public function findProductById($data)
+    {
+        $product = new Product();
+        $res = $product->find([
+            'id' => $data['product_id']
+        ]);
+
+        return $res;
     }
 
     public function findProductByName($data)
     {
-        foreach ($this->productsList as $product_id => $product) {
-            if ($this->productsList[$product_id]['name'] == $data['product'])
-                return [
-                    'product_id' => $product_id,
-                    'message' => ''
-                ];
+        $product = new Product();
+        $res = $product->find([
+            'name' => $data['name']
+        ]);
+
+        if (count($res) == 0) {
+            return [
+                'product_id' => '',
+                'message' => "Nenhum produto encontrado com o nome: $data[name]"
+            ];
         }
 
         return [
-            'product_id' => '',
-            'message' => "Nenhum produto encontrado com o nome $data[product]"
+            'product_id' => $res[0]['id'],
+            'message' => ''
         ];
     }
 
     public function createProduct($data)
     {
-        foreach ($this->productsList as $product_id => $product) {
-            if ($this->productsList[$product_id]['name'] == $data['name'])
-                return [
-                    'message' => "$data[name] já existe na base!"
-                ];
-        }
+        $product = new Product();
 
-        $id = rand();
-        $_SESSION['fakeDB']['Products'][$id] = [
-            'name'  => $data['name'],
-            'price' => $data['price'],
-        ];
+        $product->setName($data['name']);
+        $product->setDescription($data['description']);
+        $product->setValue($data['value']);
+        $product->setActive($data['active']);
 
-        return [
-            'message' => "$data[name] cadastrado com sucesso!"
-        ];
+        $res = $product->create();
+
+        return $res;
     }
 
     public function updateProduct($data)
     {
-        if ($this->productList[$data['product_id']]['name'] <> $data['name']) {
-            $_SESSION['fakeDB']['Products'][$data['product_id']]['name'] = $data['name'];
-        }
+        $product = new Product();
 
-        if ($this->productList[$data['product_id']]['price'] <> $data['price']) {
-            $_SESSION['fakeDB']['Products'][$data['product_id']]['price'] = $data['price'];
-        }
+        $product->setProductId($data['product_id']);
 
-        return [
-            'message' => 'Dados atualizados com sucesso!',
-            'details' => [
-                'product_id' => $data['product_id'],
-                'name'       => $data['name'],
-                'price'      => $data['price'],
-            ]
-        ];
+        $product->setName($data['name']);
+        $product->setDescription($data['description']);
+        $product->setValue($data['value']);
+        $product->setActive($data['active']);
+
+        $res = $product->update();
+
+        return $res;
     }
 
     public function deleteProduct($data)
     {
-        unset($_SESSION['fakeDB']['Products'][$data['product_id']]);
+        $product = new Product();
+        $product->setProductId($data['product_id']);
+        $product->setName($data['name']);
 
-        return [
-            'message' => 'Produto excluído com sucesso',
-        ];
+        $res = $product->delete();
+
+        return $res;
     }
 }
 

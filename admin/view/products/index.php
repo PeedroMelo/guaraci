@@ -72,6 +72,6 @@
     </div>
 
     <?php include_once "../../includes/templates/footer.php"; ?>
-		<script src="js/functions.js?v=2"></script>
+		<script src="js/functions.js?v=3"></script>
   </body>
 </html>
