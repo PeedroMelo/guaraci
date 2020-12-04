@@ -24,7 +24,7 @@ function login() {
         }
 
         // Go to admin page
-        window.location.href = '../view/products/';
+        window.location.href = '../products/';
         return true;
       }
       form.classList.add('was-validated')
@@ -42,7 +42,7 @@ function autenticateUser() {
   };
 
   $.ajax({
-    url: "ajax/login.php",
+    url: "ajax_router.php",
     method: 'POST',
     async: false,
     data: args,

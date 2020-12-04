@@ -9,7 +9,7 @@
 
 function listProducts() {
     $.ajax({
-        url: "ajax/Product.php",
+        url: "ajax_router.php",
         method: 'POST',
         data: {
             function: 'listProducts',
@@ -35,7 +35,7 @@ function deleteProduct() {
             if (confirm) {
 
                 $.ajax({
-                    url: "ajax/Product.php",
+                    url: "ajax_router.php",
                     method: 'POST',
                     data: {
                         function: 'deleteProduct',
@@ -63,14 +63,13 @@ function findProduct() {
             var product = product_name.value;
             
             $.ajax({
-                url: "ajax/Product.php",
+                url: "ajax_router.php",
                 method: 'POST',
                 data: {
                     function: 'findProductByName',
-                    args: { product: product }
+                    args: { name: product }
                 },
             }).done(function(res) {
-        
                 if (res.product_id === '') {
                     alert(res.message);
                     document.getElementById('product').value = '';

@@ -1,10 +1,16 @@
 <?php
-  require '../../includes/classes/Autentication.php';
+  require '../../includes/helpers/Autentication.php';
+  require '../../controller/UserController.php';
+
   $auth = new Autentication();
   $auth->autenticateSession();
 
   $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : '';
-  $user = $_SESSION['fakeDB']['Users'][$user_id];
+  $user = [];
+  if ($user_id != '') {
+    $userController = new UserController();
+    $user = $userController->findUserById($user_id)[0];
+  }
 ?>
 
 <!doctype html>
@@ -55,6 +61,16 @@
 							<form class="needs-validation" novalidate>
 								<div class="row">
 									<div class="col-md-4">
+										<label for="name">Nome</label>
+										<input type="text" class="form-control" id="name" placeholder="" value="<?= isset($user['name']) ? $user['name'] : '' ?>" required>
+										<div class="invalid-feedback">
+											Por favor, informe seu <strong>email</strong>.
+										</div>
+									</div>
+                </div>
+                
+                <div class="row">
+									<div class="col-md-4">
 										<label for="email">E-mail</label>
 										<input type="text" class="form-control" id="email" placeholder="" value="<?= isset($user['email']) ? $user['email'] : '' ?>" required>
 										<div class="invalid-feedback">
@@ -98,6 +114,6 @@
 		</div>
 
     <?php include_once "../../includes/templates/footer.php"; ?>
-		<script src="js/form-validation.js?v=3"></script>
+		<script src="js/form-validation.js?v=4"></script>
   </body>
 </html>

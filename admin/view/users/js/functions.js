@@ -9,7 +9,7 @@
 
 function listUsers() {
     $.ajax({
-        url: "ajax/User.php",
+        url: "ajax_router.php",
         method: 'POST',
         data: {
             function: 'listUsers',
@@ -35,7 +35,7 @@ function deleteUser() {
             if (confirm) {
 
                 $.ajax({
-                    url: "ajax/User.php",
+                    url: "ajax_router.php",
                     method: 'POST',
                     data: {
                         function: 'deleteUser',
@@ -63,7 +63,7 @@ function findUser() {
             var email = user_email.value;
             
             $.ajax({
-                url: "ajax/User.php",
+                url: "ajax_router.php",
                 method: 'POST',
                 data: {
                     function: 'findUserByEmail',

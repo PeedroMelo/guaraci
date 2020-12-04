@@ -1,5 +1,5 @@
 <?php
-  require '../../includes/classes/Autentication.php';
+  require '../../includes/helpers/Autentication.php';
   $auth = new Autentication();
   $auth->autenticateSession();
 ?>
@@ -44,7 +44,7 @@
             <h1 class="h2">Clientes</h1>
             <div class="btn-toolbar mb-6 mb-md-0">
               <div style="display: flex; align-items: center; width: 240px;">
-                <input type="text" id="client_name_email" name="client_name_email" placeholder="Digite um nome | e-mail + [Enter]" style="height: 31px; width: 100%; margin-right: 5px;"/>
+                <input type="text" id="client_email" name="client_email" placeholder="Digite um e-mail + [Enter]" style="height: 31px; width: 100%; margin-right: 5px;"/>
               </div>
               <div style="margin-left: 5px;">
                 <a href="form.php" style="text_decoration: none;">
@@ -72,6 +72,6 @@
     </div>
 
     <?php include_once "../../includes/templates/footer.php"; ?>
-		<script src="js/functions.js?v=2"></script>
+		<script src="js/functions.js?v=5"></script>
   </body>
 </html>
