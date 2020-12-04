@@ -56,28 +56,28 @@ function deleteClient() {
 
 function findClient() {
 
-    var client_name_email = document.getElementById('client_name_email');
-    client_name_email.addEventListener('keypress', (e) => {
+    var client_email = document.getElementById('client_email');
+    client_email.addEventListener('keypress', (e) => {
         if (e.which === 13) {
             
-            var name_email = client_name_email.value;
+            var email = client_email.value;
             
             $.ajax({
                 url: "ajax_router.php",
                 method: 'POST',
                 data: {
                     function: 'findClientByNameOrEmail',
-                    args: { name_email: name_email }
+                    args: { email: email }
                 },
             }).done(function(res) {
         
-                if (res.client_id === '') {
+                if (res.id === '') {
                     alert(res.message);
-                    document.getElementById('client_name_email').value = '';
+                    document.getElementById('client_email').value = '';
                     return false;
                 }
 
-                window.location.href = `./form.php?client_id=${res.client_id}`;
+                window.location.href = `./form.php?client_id=${res.id}`;
                 return true;
         
             }).fail(function(error) {

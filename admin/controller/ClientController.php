@@ -1,36 +1,28 @@
 <?php
 
-require __DIR__ . '/../includes/helpers/Connection.php';
+require __DIR__ . '/../model/Client.php';
 
 class ClientController
 {
-    public $clientList;
-
-    function __construct()
-    {
-        session_start();
-        $this->clientList = $_SESSION['fakeDB']['Clients'];
-    }
-
     public function listClients()
     {
-        $html = '';
-        foreach ($this->clientList as $client_id => $client) {
+        $client = new Client();
+        $clients = $client->list();
+
+        foreach ($clients as $client) {
             $html .=
-            "<tr client_id='$client_id'>
-                <td>$client_id</td>
-                <td>$client[name]</td>
+            "<tr client_id='$client[id]'>
+                <td>#$client[id]</td>
+                <td>$client[first_name] $client[last_name]</td>
                 <td>$client[email]</td>
                 <td style='width: 200px; display: flex;'>
-                    <a href='form.php?client_id=$client_id' style='text_decoration: none;'>
+                    <a href='form.php?client_id=$client[id]' style='text_decoration: none;'>
                         <button class='btn btn-sm btn-success' type='button' style='display: flex; margin-right: 5px;'>
-                        <!-- <span data-feather='edit' style='margin-right: 5px;'></span> -->
                         Editar
                         </button>
                     </a>
 
-                    <button client_id='$client_id' class='btn btn-sm btn-danger excluir' type='button' style='display: flex;'>
-                        <!-- <span data-feather='trash' style='margin-right: 5px;'></span> -->
+                    <button client_id='$client[id]' class='btn btn-sm btn-danger excluir' type='button' style='display: flex;'>
                         Excluir
                     </button>
                 </td>
@@ -38,73 +30,80 @@ class ClientController
         }
 
         return [
-            'html' => $html
+            'html' => isset($html) ? $html : '',
         ];
+    }
+
+    public function findClientById($data)
+    {
+        $client = new Client();
+        $res = $client->find([
+            'id' => $data['client_id']
+        ]);
+
+        return $res;
     }
 
     public function findClientByNameOrEmail($data)
     {
-        foreach ($this->clientList as $client_id => $client) {
-            if ($this->clientList[$client_id]['name'] == $data['name_email'] ||
-                $this->clientList[$client_id]['email'] == $data['name_email'])
-                return [
-                    'client_id' => $client_id,
-                    'message' => ''
-                ];
-        }
+        $client = new Client();
+        $res = $client->find([
+            'email' => $data['email']
+        ]);
 
-        return [
-            'client_id' => '',
-            'message' => "Nenhum cliente encontrado com o dado $data[name_email]"
-        ];
+        return $res[0];
     }
 
     public function createClient($data)
     {
-        foreach ($this->clientList as $client_id => $client) {
-            if ($this->clientList[$client_id]['email'] == $data['email'])
-                return [
-                    'message' => "$data[email] já existe na base!"
-                ];
-        }
+        $client = new Client();
 
-        $id = rand();
-        $_SESSION['fakeDB']['Clients'][$id] = [
-            'name'  => $data['name'],
-            'email' => $data['email'],
-        ];
+        $nascimento = new DateTime($data['birthdate']);
+        $nascimento = $nascimento->format('Y-m-d');
+        
+        $client->setFirstName($data['first_name']);
+        $client->setLastName($data['last_name']);
+        $client->setEmail($data['email']);
+        $client->setBirthdate($nascimento);
+        $client->setPhonenumber($data['phonenumber']);
+        $client->setCellphone($data['cellphone']);
+        $client->setAddress($data['address']);
 
-        return [
-            'message' => "Cliente cadastrado com sucesso!"
-        ];
+        $res = $client->create();
+
+        return $res;
     }
 
     public function updateClient($data)
     {
-        if ($this->clientList[$data['client_id']]['name'] <> $data['name']) {
-            $_SESSION['fakeDB']['Clients'][$data['client_id']]['name'] = $data['name'];
-        }
+        $client = new Client();
 
-        if ($this->clientList[$data['client_id']]['email'] <> $data['email']) {
-            $_SESSION['fakeDB']['Clients'][$data['client_id']]['email'] = $data['email'];
-        }
+        $nascimento = new DateTime($data['birthdate']);
+        $nascimento = $nascimento->format('Y-m-d');
 
-        return [
-            'message' => 'Dados atualizados com sucesso!',
-            'details' => [
-                'client_id'  => $data['client_id'],
-                'name'    => $data['name'],
-                'email'    => $data['email'],
-            ]
-        ];
+        $client->setClientId($data['client_id']);
+
+        $client->setFirstName($data['first_name']);
+        $client->setLastName($data['last_name']);
+        $client->setEmail($data['email']);
+        $client->setBirthdate($nascimento);
+        $client->setPhonenumber($data['phonenumber']);
+        $client->setCellphone($data['cellphone']);
+        $client->setAddress($data['address']);
+
+        $res = $client->update();
+
+        return $res;
     }
 
     public function deleteClient($data)
     {
-        unset($_SESSION['fakeDB']['Clients'][$data['client_id']]);
+        $client = new Client();
+        $client->setClientId($data['client_id']);
+        $client->setFirstName($data['first_name']);
 
-        return [
-            'message' => 'Cliente excluído com sucesso',
-        ];
+        $res = $client->delete();
+
+        return $res;
     }
 }

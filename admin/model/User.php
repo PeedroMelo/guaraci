@@ -30,6 +30,7 @@ class User
 
         $where = [];
         foreach ($filter as $field => $value) {
+            $value = trim($value);
             $where[] = "$field = '$value'";
         }
         $where = 'WHERE ' . implode(' AND ', $where);
