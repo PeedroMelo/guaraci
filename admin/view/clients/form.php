@@ -1,10 +1,17 @@
 <?php
-  require __DIR__ . '/../../includes/classes/Autentication.php';
+  require __DIR__ . '/../../includes/helpers/Autentication.php';
+  require __DIR__ . '/../../controller/ClientController.php';
+
   $auth = new Autentication();
   $auth->autenticateSession();
 
   $client_id = isset($_GET['client_id']) ? $_GET['client_id'] : '';
-  $client = $_SESSION['fakeDB']['Clients'][$client_id];
+
+  $clients = [];
+  if ($client_id != '') {
+    $clientController = new ClientController();
+    $client = $clientController->findClientById($client_id)[0];
+  }
 ?>
 
 <!doctype html>
@@ -57,9 +64,19 @@
                 <div class="row">
 									<div class="col-md-4">
 										<label for="name">Nome</label>
-										<input type="text" class="form-control" id="name" placeholder="" value="<?= isset($client['name']) ? $client['name'] : '' ?>" required>
+										<input type="text" class="form-control" id="first_name" placeholder="" value="<?= isset($client['first_name']) ? $client['first_name'] : '' ?>" required>
 										<div class="invalid-feedback">
-											Por favor, informe seu <strong>email</strong>.
+											Por favor, informe seu <strong>Nome</strong>.
+										</div>
+									</div>
+								</div>
+
+                <div class="row">
+									<div class="col-md-4">
+										<label for="name">Sobrenome</label>
+										<input type="text" class="form-control" id="last_name" placeholder="" value="<?= isset($client['last_name']) ? $client['last_name'] : '' ?>" required>
+										<div class="invalid-feedback">
+											Por favor, informe seu <strong>Sobrenome</strong>.
 										</div>
 									</div>
 								</div>
@@ -70,6 +87,46 @@
 										<input type="text" class="form-control" id="email" placeholder="" value="<?= isset($client['email']) ? $client['email'] : '' ?>" required>
 										<div class="invalid-feedback">
 											Por favor, informe seu <strong>email</strong>.
+										</div>
+									</div>
+								</div>
+
+                <div class="row">
+									<div class="col-md-4">
+										<label for="name">Nascimento</label>
+										<input type="text" class="form-control" id="birthdate" placeholder="01/01/1900" maxlength="10" value="<?= isset($client['birthdate']) ? $client['birthdate'] : '' ?>">
+										<div class="invalid-feedback">
+											Por favor, informe seu <strong>nascimento</strong>.
+										</div>
+									</div>
+								</div>
+
+                <div class="row">
+									<div class="col-md-4">
+										<label for="email">Telefone</label>
+										<input type="text" class="form-control" id="phonenumber" placeholder="" value="<?= isset($client['phonenumber']) ? $client['phonenumber'] : '' ?>">
+										<div class="invalid-feedback">
+											Por favor, informe seu <strong>telefone</strong>.
+										</div>
+									</div>
+								</div>
+
+                <div class="row">
+									<div class="col-md-4">
+										<label for="email">Celular</label>
+										<input type="text" class="form-control" id="cellphone" placeholder="" value="<?= isset($client['cellphone']) ? $client['cellphone'] : '' ?>" required>
+										<div class="invalid-feedback">
+											Por favor, informe seu <strong>celular</strong>.
+										</div>
+									</div>
+								</div>
+
+                <div class="row">
+									<div class="col-md-4">
+										<label for="email">Endereço completo</label>
+										<input type="text" class="form-control" id="address" placeholder="" value="<?= isset($client['address']) ? $client['address'] : '' ?>">
+										<div class="invalid-feedback">
+											Por favor, informe seu <strong>endereço</strong>.
 										</div>
 									</div>
 								</div>
@@ -86,6 +143,6 @@
 		</div>
 
     <?php include_once "../../includes/templates/footer.php"; ?>
-		<script src="js/form-validation.js?v=3"></script>
+		<script src="js/form-validation.js?v=42"></script>
   </body>
 </html>

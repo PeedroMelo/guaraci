@@ -1,6 +1,7 @@
 <?php
   require '../../includes/helpers/Autentication.php';
   require '../../controller/UserController.php';
+
   $auth = new Autentication();
   $auth->autenticateSession();
 

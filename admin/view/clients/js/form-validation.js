@@ -2,6 +2,9 @@
   'use strict'
 
   window.addEventListener('load', function () {
+    formatBirthDate()
+    formatMobile()
+    formatPhoneNumber()
     validateFields()
   }, false)
 }());
@@ -26,14 +29,62 @@ function validateFields() {
   return false;
 }
 
+function formatBirthDate() {
+  document.getElementById('birthdate').addEventListener('keypress', function (e) {
+    if(e.keyCode < 47 || e.keyCode > 57) {
+      e.preventDefault();
+    }
+    var len = document.getElementById('birthdate').value.length;
+
+    if(len !== 1 || len !== 3) {
+      if(e.keyCode == 47) {
+        e.preventDefault();
+      }
+    }
+
+    if(len === 2) {
+      document.getElementById('birthdate').value += '/';
+    }
+
+    if(len === 5) {
+      document.getElementById('birthdate').value += '/';
+    }
+  })
+}
+
+function formatPhoneNumber() {
+  document.getElementById('phonenumber').addEventListener('keypress', function (e) {
+    if(e.keyCode < 47 || e.keyCode > 57) {
+      e.preventDefault();
+    }
+    var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{4})(\d{4})/);
+    e.target.value = '(' + x[1] + ') ' + x[2] + '-' + x[3];
+  })
+}
+
+function formatMobile() {
+  document.getElementById('cellphone').addEventListener('keypress', function (e) {
+    if(e.keyCode < 47 || e.keyCode > 57) {
+      e.preventDefault();
+    }
+    var x = e.target.value.replace(/\D/g, '').match(/(\d{2})(\d{5})(\d{4})/);
+    e.target.value = '(' + x[1] + ') ' + x[2] + '-' + x[3];
+  })
+}
+
 function saveData() {
   
   var client_id = document.getElementById('client_id').value;
 
   var args = {
-    'client_id': client_id,
-    'name'     : document.getElementById('name').value,
-    'email'    : document.getElementById('email').value,
+    'client_id'  : client_id,
+    'first_name' : document.getElementById('first_name').value,
+    'last_name'  : document.getElementById('last_name').value,
+    'email'      : document.getElementById('email').value,
+    'birthdate'  : document.getElementById('birthdate').value,
+    'phonenumber': document.getElementById('phonenumber').value,
+    'cellphone'  : document.getElementById('cellphone').value,
+    'address'    : document.getElementById('address').value,
   };
 
   if (client_id == '') {
@@ -56,7 +107,6 @@ function saveData() {
 
     window.location.href = '../clients/';
   }).fail(function(error) {
-    alert('oi')
     console.log(error);
   });
 

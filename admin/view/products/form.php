@@ -1,10 +1,17 @@
 <?php
-  require '../../includes/classes/Autentication.php';
+  require __DIR__ . '/../../includes/helpers/Autentication.php';
+  require __DIR__ . '/../../controller/ProductController.php';
+
   $auth = new Autentication();
   $auth->autenticateSession();
 
   $product_id = isset($_GET['product_id']) ? $_GET['product_id'] : '';
-  $products = $_SESSION['fakeDB']['Products'][$product_id];
+
+  $product = [];
+  if ($product_id != '') {
+    $productController = new ProductController();
+    $product = $productController->findProductById($product_id)[0];
+  }
 ?>
 
 <!doctype html>
@@ -56,7 +63,17 @@
 								<div class="row">
 									<div class="col-md-4">
 										<label for="name">Nome</label>
-										<input type="text" class="form-control" id="name" placeholder="" value="<?= isset($products['name']) ? $products['name'] : '' ?>" required>
+										<input type="text" class="form-control" id="name" placeholder="" value="<?= isset($product['name']) ? $product['name'] : '' ?>" required>
+										<div class="invalid-feedback">
+											Por favor, informe o <strong>nome</strong> do produto.
+										</div>
+									</div>
+								</div>
+
+                <div class="row">
+									<div class="col-md-4">
+										<label for="name">Descrição</label>
+										<input type="text" class="form-control" id="description" placeholder="" value="<?= isset($product['description']) ? $product['description'] : '' ?>">
 										<div class="invalid-feedback">
 											Por favor, informe o <strong>nome</strong> do produto.
 										</div>
@@ -65,11 +82,18 @@
 
 								<div class="row">
 									<div class="col-md-4 mb-3">
-										<label for="price">Preço (R$)</label>
-										<input type="text" class="form-control" id="price" placeholder="" value="<?= isset($products['price']) ? $products['price'] : 0 ?>" required>
+										<label for="value">Preço (R$)</label>
+										<input type="text" class="form-control" id="value" placeholder="" value="<?= isset($product['value']) ? $product['value'] : 0 ?>" required>
 										<div class="invalid-feedback">
 											Por favor, informe o <strong>preço</strong>.
 										</div>
+									</div>
+								</div>
+
+                <div class="row">
+									<div class="col-md-4 mb-3">
+										<label for="value">Ativo?</label>
+                    <input type="checkbox" name="active" id="active" <?= isset($product['active']) && $product['active'] ? 'checked' : '' ?> >
 									</div>
 								</div>
 
@@ -85,6 +109,6 @@
 		</div>
 
     <?php include_once "../../includes/templates/footer.php"; ?>
-		<script src="js/form-validation.js?v=2"></script>
+		<script src="js/form-validation.js?v=32"></script>
   </body>
 </html>

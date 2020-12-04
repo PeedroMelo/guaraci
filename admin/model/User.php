@@ -9,48 +9,6 @@ class User
     private $email;
     private $password;
 
-    // Getters & Setters section
-
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
     // CRUD Methods Section
 
     public function list()
@@ -72,6 +30,7 @@ class User
 
         $where = [];
         foreach ($filter as $field => $value) {
+            $value = trim($value);
             $where[] = "$field = '$value'";
         }
         $where = 'WHERE ' . implode(' AND ', $where);
@@ -129,7 +88,6 @@ class User
         return [
             'error'   => false,
             'message' => "Usuário $this->name atualizado com sucesso!",
-            'details' => $query
         ];
     }
 
@@ -147,5 +105,47 @@ class User
             'message' => "Usuário $this->name excluído com sucesso!",
             'details' => ''
         ];
+    }
+
+    // Getters and Setters Section
+
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 }
